@@ -15,12 +15,22 @@
             font-family: 'Arial', sans-serif;
         }
 
+        /* Perbaikan untuk scroll */
+        html, body {
+            height: auto;
+            min-height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* Untuk dukungan scroll halus di iOS */
+            position: relative;
+        }
+
         body {
             background-color: #f8f7f2;
             color: #333;
-            overflow-x: hidden;
             margin: 0;
             padding: 0;
+            position: relative;
         }
 
         .container {
@@ -28,6 +38,7 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            overflow-y: visible;
         }
 
         /* Landing screen */
@@ -44,7 +55,6 @@
             justify-content: center;
             z-index: 100;
             transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out, z-index 0s 1.5s;
-            position: relative;
             overflow: hidden;
         }
 
@@ -74,6 +84,7 @@
             opacity: 0;
             z-index: -1;
             position: absolute;
+            pointer-events: none; /* Mencegah interaksi dengan elemen tersembunyi */
         }
 
         .landing h1 {
@@ -119,6 +130,7 @@
             z-index: 1;
             background: linear-gradient(to bottom, #f8f7f2, #f0efe5);
             margin-top: 0;
+            overflow-y: visible;
         }
 
         /* Background dengan ikon */
@@ -987,6 +999,9 @@
                 // Sembunyikan landing page
                 landing.classList.add('hidden');
                 
+                // Pastikan scrolling diaktifkan
+                document.body.style.overflow = 'auto';
+                
                 // Tunggu animasi landing selesai lalu tampilkan konten utama
                 setTimeout(function() {
                     // Scroll ke atas secara otomatis
@@ -1070,6 +1085,10 @@
                 setTimeout(function() {
                     popupOverlay.classList.remove('active');
                     popupClosed = true; // Popup telah ditutup dengan tombol "Saya Memaafkan"
+                    
+                    // Pastikan scrolling diaktifkan
+                    document.body.style.overflow = 'auto';
+                    document.body.style.height = 'auto';
                     
                     // Scroll ke awal halaman setelah popup ditutup
                     window.scrollTo({
@@ -1223,27 +1242,19 @@
                 }, 500);
             }
             
-            // Prevent scrolling issues on iOS
+            // Fix untuk masalah scrolling pada mobile
+            // Ubah ke passive: true untuk kinerja yang lebih baik
             document.addEventListener('touchmove', function(e) {
-                // Check if element is not scrollable
-                if (!isScrollable(e.target)) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
+                // Biarkan semua scrolling default berfungsi
+            }, { passive: true });
             
-            function isScrollable(element) {
-                // Check if element or any of its parents is scrollable
-                let currentElement = element;
-                while (currentElement) {
-                    if (currentElement.classList && 
-                        (currentElement.classList.contains('cards-container') || 
-                         currentElement.classList.contains('thr-popup'))) {
-                        return true;
-                    }
-                    currentElement = currentElement.parentElement;
-                }
-                return false;
-            }
+            // Tambahkan untuk orientasi mobile
+            window.addEventListener('orientationchange', function() {
+                // Perbaiki posisi scroll setelah perubahan orientasi
+                setTimeout(function() {
+                    window.scrollTo(0, 1);
+                }, 200);
+            });
         });
     </script>
 </body>
