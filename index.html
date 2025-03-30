@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Hari Raya Idul Fitri</title>
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inline CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f8f7f2;
+            color: #333;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Landing screen */
+        .landing {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #1d843b, #0a5d26);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out, z-index 0s 1.5s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Tambahan untuk icon background pada landing page */
+        .landing::before {
+            content: '☪';
+            position: absolute;
+            font-size: 200px;
+            color: rgba(255, 255, 255, 0.05);
+            top: -50px;
+            right: -50px;
+            transform: rotate(-20deg);
+        }
+
+        .landing::after {
+            content: '☪';
+            position: absolute;
+            font-size: 150px;
+            color: rgba(255, 255, 255, 0.03);
+            bottom: -50px;
+            left: -30px;
+            transform: rotate(15deg);
+        }
+
+        .landing.hidden {
+            transform: translateY(-100vh);
+            opacity: 0;
+            z-index: -1;
+            position: absolute;
+        }
+
+        .landing h1 {
+            color: #f8d568;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .start-btn {
+            background-color: #f8d568;
+            color: #0a5d26;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .start-btn:hover {
+            background-color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Main content */
+        .main-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(to bottom, #f8f7f2, #f0efe5);
+            margin-top: 0;
+        }
+
+        /* Background dengan ikon */
+        .bg-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .bg-icon {
+            position: absolute;
+            color: #0a5d26;
+            opacity: 0.2;
+        }
+
+        /* Ikon bulan sabit */
+        .icon-moon {
+            font-size: 60px;
+            top: 10%;
+            right: 15%;
+            transform: rotate(-15deg);
+        }
+
+        /* Ikon masjid */
+        .icon-mosque {
+            font-size: 80px;
+            bottom: 20%;
+            left: 10%;
+        }
+
+        /* Ikon ketupat */
+        .icon-ketupat {
+            font-size: 40px;
+            top: 40%;
+            right: 10%;
+        }
+
+        /* Ikon bintang */
+        .icon-star {
+            font-size: 30px;
+            top: 25%;
+            left: 20%;
+        }
+
+        /* Ikon lainnya */
+        .icon-lantern {
+            font-size: 50px;
+            bottom: 30%;
+            right: 20%;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(248, 247, 242, 0.85);
+            z-index: -1;
+        }
+
+        .header {
+            text-align: center;
+            margin: 40px 0;
+            padding: 0 15px;
+        }
+
+        .header h1 {
+            color: #0a5d26;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header h2 {
+            color: #8c6f17;
+            font-size: 1.8rem;
+            font-weight: normal;
+        }
+
+        .decoration {
+            position: relative;
+            width: 100%;
+            height: 60px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .ketupat {
+            width: 50px;
+            height: 50px;
+            background-color: #f8d568;
+            transform: rotate(45deg);
+            position: relative;
+            margin: 0 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ketupat::before, .ketupat::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            border: 2px solid #0a5d26;
+            top: 10%;
+            left: 10%;
+        }
+
+        .main-greeting {
+            text-align: center;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+        }
+
+        .main-greeting p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Pop-up */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup {
+            background: linear-gradient(to bottom, #1d843b, #0a5d26);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            transform: scale(0.7);
+            transition: transform 0.5s ease;
+            position: relative;
+            border: 5px solid #f8d568;
+            width: 90%;
+            margin: 0 15px;
+        }
+
+        .popup-overlay.active .popup {
+            transform: scale(1);
+        }
+
+        .popup h3 {
+            color: #f8d568;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .popup p {
+            color: #fff;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .forgive-btn {
+            background-color: #f8d568;
+            color: #0a5d26;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .forgive-btn:hover {
+            background-color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* CSS untuk tombol close yang akan bergerak */
+        .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #f8d568;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            padding: 8px 12px;
+            border-radius: 50%;
+            transition: all 0.2s ease-out;
+        }
+
+        .close-popup:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Efek khusus saat mencoba mengklik tombol */
+        .close-popup:active {
+            transform: scale(0.8);
+        }
+
+        /* Tooltip untuk tombol close */
+        .close-popup::after {
+            content: "Yakin tidak memaafkan?";
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f8d568;
+            color: #0a5d26;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .close-popup:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Interactive content */
+        .interactive-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 15px;
+        }
+
+        .interactive-section h2 {
+            color: #0a5d26;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .cards-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 0;
+            width: 100%;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .card {
+            min-width: 300px;
+            height: 200px;
+            margin: 0 15px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            scroll-snap-align: center;
+            border: 2px solid #f8d568;
+        }
+
+        .card h3 {
+            color: #0a5d26;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #333;
+        }
+
+        /* THR section */
+        .thr-section {
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .thr-section h2 {
+            color: #0a5d26;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .thr-button {
+            background-color: #f8d568;
+            color: #0a5d26;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-bottom: 20px;
+            width: 200px;
+        }
+
+        .thr-button:hover {
+            background-color: #e6c457;
+            transform: scale(1.05);
+        }
+
+        /* THR Popup */
+        .thr-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .thr-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .thr-popup {
+            background: linear-gradient(to bottom, #f8d568, #e6c457);
+            padding: 40px 20px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.7);
+            transition: transform 0.5s ease;
+            position: relative;
+            border: 5px solid #0a5d26;
+            margin: 0 15px;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        .thr-popup-overlay.active .thr-popup {
+            transform: scale(1);
+        }
+
+        .thr-popup h3 {
+            color: #0a5d26;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+        .account-list {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+            padding: 0 5px;
+        }
+
+        .account-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .copy-btn {
+            background-color: #0a5d26;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #1d843b;
+        }
+
+        .copy-btn.copied {
+            background-color: #666;
+        }
+
+        .close-thr-popup {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #0a5d26;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Animation for background elements */
+        .bg-element {
+            position: absolute;
+            z-index: -1;
+        }
+
+        .moon {
+            top: 50px;
+            right: 50px;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(248, 213, 104, 0.2);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(248, 213, 104, 0.5);
+        }
+
+        .star {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Confetti animation for popup */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f8d568;
+            opacity: 0;
+        }
+
+        @keyframes confettiRain {
+            0% {
+                opacity: 1;
+                transform: translateY(-100vh) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Copy notification */
+        .copy-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #0a5d26;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 2000;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0a5d26;
+            color: #fff;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        /* Scroll indicator for cards */
+        .scroll-indicator {
+            display: none;
+            text-align: center;
+            color: #0a5d26;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Memperjelas struktur visual */
+        .main-content > * {
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .content-hidden {
+            opacity: 0 !important;
+        }
+
+        /* Perbaiki scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile improvements */
+        @media (max-width: 768px) {
+            .landing h1 {
+                font-size: 2rem;
+                padding: 0 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header h2 {
+                font-size: 1.4rem;
+            }
+            
+            .popup {
+                padding: 30px 20px;
+                max-width: 90%;
+            }
+            
+            .main-greeting {
+                padding: 20px 15px;
+            }
+            
+            .main-greeting p {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                min-width: 250px;
+                height: 180px;
+                padding: 15px;
+            }
+
+            .thr-popup {
+                padding: 25px 15px;
+            }
+
+            .account-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .copy-btn {
+                margin-top: 10px;
+                align-self: flex-end;
+            }
+            
+            .ketupat {
+                width: 40px;
+                height: 40px;
+                margin: 0 10px;
+            }
+            
+            .thr-section {
+                padding: 20px 15px;
+            }
+            
+            .thr-button {
+                width: 180px;
+                font-size: 1.1rem;
+            }
+            
+            .scroll-indicator {
+                display: block;
+            }
+            
+            /* Background icons pada mobile */
+            .icon-moon {
+                font-size: 40px;
+                top: 5%;
+                right: 10%;
+            }
+            
+            .icon-mosque {
+                font-size: 60px;
+                bottom: 10%;
+                left: 5%;
+            }
+            
+            /* Add swipe animation for cards */
+            @keyframes swipeHint {
+                0%, 100% { transform: translateX(0); }
+                50% { transform: translateX(10px); }
+            }
+            
+            .cards-container::after {
+                content: '';
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                width: 20px;
+                height: 20px;
+                border-right: 3px solid #0a5d26;
+                border-bottom: 3px solid #0a5d26;
+                transform: rotate(-45deg) translateY(-50%);
+                animation: swipeHint 1.5s infinite;
+                opacity: 0.7;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .landing h1 {
+                font-size: 1.7rem;
+            }
+            
+            .start-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .card {
+                min-width: 220px;
+                height: 160px;
+            }
+            
+            .card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .card p {
+                font-size: 0.9rem;
+            }
+            
+            .popup h3 {
+                font-size: 1.5rem;
+            }
+            
+            .popup p {
+                font-size: 1rem;
+            }
+            
+            .account-item {
+                font-size: 0.9rem;
+            }
+            
+            .thr-popup h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animasi float untuk ikon background */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .bg-icon {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .icon-moon {
+            animation-delay: 0s;
+        }
+
+        .icon-mosque {
+            animation-delay: 1.5s;
+        }
+
+        .icon-ketupat {
+            animation-delay: 3s;
+        }
+
+        .icon-star {
+            animation-delay: 4.5s;
+        }
+
+        .icon-lantern {
+            animation-delay: 2.5s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Screen -->
+    <div class="landing">
+        <h1>Selamat Hari Raya Idul Fitri 1446 H</h1>
+        <button class="start-btn">Mulai</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <div class="overlay"></div>
+            
+            <!-- Background Elements dengan Icon -->
+            <div class="bg-icons">
+                <i class="bg-icon icon-moon fas fa-moon"></i>
+                <i class="bg-icon icon-mosque fas fa-mosque"></i>
+                <i class="bg-icon icon-ketupat fas fa-star"></i>
+                <i class="bg-icon icon-star fas fa-star"></i>
+                <i class="bg-icon icon-lantern fas fa-lightbulb"></i>
+                <i class="bg-icon icon-star fas fa-star" style="top: 60%; left: 70%; font-size: 25px;"></i>
+                <i class="bg-icon icon-star fas fa-star" style="top: 70%; left: 30%; font-size: 20px;"></i>
+                <i class="bg-icon icon-star fas fa-star" style="top: 15%; left: 60%; font-size: 22px;"></i>
+                <i class="bg-icon icon-ketupat fas fa-star" style="bottom: 15%; right: 25%; font-size: 35px;"></i>
+                <i class="bg-icon icon-ketupat fas fa-kaaba" style="top: 35%; left: 50%; font-size: 45px;"></i>
+            </div>
+            
+            <div class="bg-element moon"></div>
+            
+            <div class="header">
+                <h1>Selamat Hari Raya Idul Fitri</h1>
+                <h2>1446 Hijriah</h2>
+            </div>
+            
+            <div class="decoration">
+                <div class="ketupat"></div>
+                <div class="ketupat"></div>
+                <div class="ketupat"></div>
+            </div>
+            
+            <div class="main-greeting">
+                <p>Dengan segala kerendahan hati, di hari yang fitri ini saya mengucapkan Selamat Hari Raya Idul Fitri.</p>
+                <p>Semoga amalan kita selama Ramadhan diterima oleh Allah SWT dan dapat kita implementasikan dalam kehidupan sehari-hari.</p>
+                <p>Mohon maaf lahir dan batin atas segala khilaf dan salah.</p>
+            </div>
+            
+            <div class="interactive-section">
+                <h2>Doa dan Harapan</h2>
+                <div class="cards-container">
+                    <div class="card">
+                        <h3><i class="fas fa-users"></i> Doa untuk Keluarga</h3>
+                        <p>Semoga keluarga kita selalu dalam lindungan dan rahmat Allah SWT.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-flag"></i> Doa untuk Bangsa</h3>
+                        <p>Semoga negeri kita selalu dilimpahi kedamaian dan keberkahan.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-hands-helping"></i> Doa untuk Umat</h3>
+                        <p>Semoga seluruh umat manusia hidup dalam keharmonisan dan kesejahteraan.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-heart"></i> Doa untuk Diri</h3>
+                        <p>Semoga kita menjadi pribadi yang lebih baik setelah Ramadhan ini.</p>
+                    </div>
+                </div>
+                <div class="scroll-indicator">← Geser untuk melihat lebih banyak →</div>
+            </div>
+            
+            <div class="thr-section">
+                <h2><i class="fas fa-gift"></i> THR</h2>
+                <button class="thr-button">Lihat Rekening</button>
+            </div>
+            
+            <footer>
+                <p>Dibuat dengan sepenuh hati untuk menyambut Idul Fitri 1446 H</p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Pop-up Permintaan Maaf -->
+    <div class="popup-overlay">
+        <div class="popup">
+            <button class="close-popup">×</button>
+            <h3><i class="fas fa-hands-praying"></i> Mohon Maaf Lahir dan Batin</h3>
+            <p>Dalam suasana Idul Fitri yang penuh berkah ini, dengan segala kerendahan hati saya memohon maaf atas segala kesalahan dan khilaf baik yang disengaja maupun tidak disengaja.</p>
+            <button class="forgive-btn"><i class="fas fa-heart"></i> Saya Memaafkan</button>
+        </div>
+    </div>
+
+    <!-- THR Pop-up -->
+    <div class="thr-popup-overlay">
+        <div class="thr-popup">
+            <button class="close-thr-popup">×</button>
+            <h3><i class="fas fa-wallet"></i> Rekening THR</h3>
+            <ul class="account-list">
+                <li class="account-item">
+                    <span><i class="fas fa-money-bill-wave"></i> OVO : 081276369529</span>
+                    <button class="copy-btn" data-account="081276369529">Salin</button>
+                </li>
+                <li class="account-item">
+                    <span><i class="fas fa-money-bill-wave"></i> GOPAY : 081276369529</span>
+                    <button class="copy-btn" data-account="081276369529">Salin</button>
+                </li>
+                <li class="account-item">
+                    <span><i class="fas fa-money-bill-wave"></i> SHOPEE : 081276369529</span>
+                    <button class="copy-btn" data-account="081276369529">Salin</button>
+                </li>
+                <li class="account-item">
+                    <span><i class="fas fa-university"></i> BRI : 526201025305535</span>
+                    <button class="copy-btn" data-account="526201025305535">Salin</button>
+                </li>
+                <li class="account-item">
+                    <span><i class="fas fa-university"></i> MANDIRI : 1050017323001</span>
+                    <button class="copy-btn" data-account="1050017323001">Salin</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Copy Notification -->
+    <div class="copy-notification">
+        Nomor rekening berhasil disalin!
+    </div>
+
+    <!-- Inline JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create stars in the background
+            createStars();
+            
+            // Start button functionality
+            const startBtn = document.querySelector('.start-btn');
+            const landing = document.querySelector('.landing');
+            const mainContent = document.querySelector('.main-content');
+            
+            // Sembunyikan konten utama saat halaman dimuat
+            const contentElements = mainContent.querySelectorAll('*:not(.overlay):not(.bg-icons):not(.bg-icon)');
+            contentElements.forEach(el => {
+                el.classList.add('content-hidden');
+            });
+            
+            startBtn.addEventListener('click', function() {
+                // Sembunyikan landing page
+                landing.classList.add('hidden');
+                
+                // Tunggu animasi landing selesai lalu tampilkan konten utama
+                setTimeout(function() {
+                    // Scroll ke atas secara otomatis
+                    window.scrollTo(0, 0);
+                    
+                    // Tunjukkan konten secara bertahap
+                    contentElements.forEach((el, index) => {
+                        setTimeout(() => {
+                            el.classList.remove('content-hidden');
+                        }, 100 * index); // Animasi bertahap
+                    });
+                    
+                    // Tampilkan popup setelah konten muncul
+                    setTimeout(showPopup, 1500);
+                }, 1000);
+            });
+            
+            // Popup functionality
+            const popupOverlay = document.querySelector('.popup-overlay');
+            const closePopupBtn = document.querySelector('.close-popup');
+            const forgiveBtn = document.querySelector('.forgive-btn');
+            let popupClosed = false;
+            
+            function showPopup() {
+                if (!popupClosed) {
+                    popupOverlay.classList.add('active');
+                    createConfetti();
+                }
+            }
+            
+            // Membuat tombol X berpindah-pindah saat akan diklik
+            closePopupBtn.addEventListener('mouseover', function(e) {
+                // Gerakan tombol ke posisi acak
+                moveCloseButton();
+            });
+            
+            // Membuat tombol X berpindah-pindah saat akan disentuh (untuk mobile)
+            closePopupBtn.addEventListener('touchstart', function(e) {
+                // Gerakan tombol ke posisi acak
+                moveCloseButton();
+                e.preventDefault(); // Mencegah click event
+            });
+            
+            closePopupBtn.addEventListener('click', function(e) {
+                // Gerakan tombol ke posisi acak
+                moveCloseButton();
+                
+                // Tetap memunculkan popup meskipun tombol X diklik
+                setTimeout(showPopup, 300);
+                e.preventDefault();
+            });
+            
+            function moveCloseButton() {
+                const popup = document.querySelector('.popup');
+                const buttonWidth = closePopupBtn.offsetWidth;
+                const buttonHeight = closePopupBtn.offsetHeight;
+                
+                // Mendapatkan dimensi popup
+                const popupWidth = popup.offsetWidth;
+                const popupHeight = popup.offsetHeight;
+                
+                // Memastikan tombol tetap dalam batas popup
+                // Angka 30 mencegah tombol berada terlalu dekat dengan tepi popup
+                const maxX = popupWidth - buttonWidth - 30;
+                const maxY = popupHeight - buttonHeight - 30;
+                
+                // Posisi acak baru untuk tombol X
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                // Mengatur posisi baru
+                closePopupBtn.style.position = 'absolute';
+                closePopupBtn.style.top = randomY + 'px';
+                closePopupBtn.style.right = 'auto';
+                closePopupBtn.style.left = randomX + 'px';
+                closePopupBtn.style.transition = 'all 0.2s ease-out';
+            }
+            
+            forgiveBtn.addEventListener('click', function() {
+                createHeartEffect();
+                setTimeout(function() {
+                    popupOverlay.classList.remove('active');
+                    popupClosed = true; // Popup telah ditutup dengan tombol "Saya Memaafkan"
+                    
+                    // Scroll ke awal halaman setelah popup ditutup
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 1500);
+            });
+            
+            // THR button functionality
+            const thrButton = document.querySelector('.thr-button');
+            const thrPopupOverlay = document.querySelector('.thr-popup-overlay');
+            const closeThrPopupBtn = document.querySelector('.close-thr-popup');
+            
+            thrButton.addEventListener('click', function() {
+                thrPopupOverlay.classList.add('active');
+            });
+            
+            closeThrPopupBtn.addEventListener('click', function() {
+                thrPopupOverlay.classList.remove('active');
+            });
+            
+            // Copy account number functionality
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            const copyNotification = document.querySelector('.copy-notification');
+            
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const accountNumber = this.getAttribute('data-account');
+                    
+                    // Copy to clipboard
+                    navigator.clipboard.writeText(accountNumber).then(() => {
+                        // Change button text temporarily
+                        const originalText = this.textContent;
+                        this.textContent = 'Tersalin!';
+                        this.classList.add('copied');
+                        
+                        // Show notification
+                        copyNotification.classList.add('show');
+                        
+                        // Reset after a delay
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                            this.classList.remove('copied');
+                            copyNotification.classList.remove('show');
+                        }, 2000);
+                    }).catch(err => {
+                        // Fallback for browsers that don't support clipboard API
+                        const textArea = document.createElement('textarea');
+                        textArea.value = accountNumber;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        
+                        // Change button text temporarily
+                        const originalText = this.textContent;
+                        this.textContent = 'Tersalin!';
+                        this.classList.add('copied');
+                        
+                        // Show notification
+                        copyNotification.classList.add('show');
+                        
+                        // Reset after a delay
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                            this.classList.remove('copied');
+                            copyNotification.classList.remove('show');
+                        }, 2000);
+                    });
+                });
+            });
+            
+            // Close popups when clicking outside - untuk THR popup saja
+            window.addEventListener('click', function(e) {
+                // Popup maaf tidak bisa ditutup dengan klik di luar
+                if (e.target === thrPopupOverlay) {
+                    thrPopupOverlay.classList.remove('active');
+                }
+            });
+            
+            // Create confetti animation
+            function createConfetti() {
+                const popup = document.querySelector('.popup');
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = getRandomColor();
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = Math.random() * 10 + 5 + 'px';
+                    confetti.style.animation = 'confettiRain ' + (Math.random() * 3 + 2) + 's ease-out forwards';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }
+            }
+            
+            function createHeartEffect() {
+                const popup = document.querySelector('.popup');
+                const heart = document.createElement('div');
+                heart.style.position = 'absolute';
+                heart.style.top = '50%';
+                heart.style.left = '50%';
+                heart.style.transform = 'translate(-50%, -50%)';
+                heart.style.color = '#f8d568';
+                heart.style.fontSize = '0px';
+                heart.style.opacity = '0';
+                heart.style.transition = 'all 1s ease';
+                heart.textContent = '❤️';
+                popup.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.style.fontSize = '100px';
+                    heart.style.opacity = '1';
+                }, 100);
+                
+                setTimeout(() => {
+                    heart.style.opacity = '0';
+                }, 1200);
+            }
+            
+            function createStars() {
+                const mainContent = document.querySelector('.main-content');
+                for (let i = 0; i < 30; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star', 'bg-element');
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.width = Math.random() * 3 + 1 + 'px';
+                    star.style.height = star.style.width;
+                    star.style.animationDelay = Math.random() * 3 + 's';
+                    mainContent.appendChild(star);
+                }
+            }
+            
+            function getRandomColor() {
+                const colors = ['#f8d568', '#1d843b', '#ffffff', '#8c6f17'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            // Add swipe hint animation for mobile
+            if (window.innerWidth <= 768) {
+                const cardsContainer = document.querySelector('.cards-container');
+                // Highlight that the cards can be scrolled horizontally
+                cardsContainer.scrollLeft = 10;
+                setTimeout(() => {
+                    cardsContainer.scrollLeft = 0;
+                }, 500);
+            }
+            
+            // Prevent scrolling issues on iOS
+            document.addEventListener('touchmove', function(e) {
+                // Check if element is not scrollable
+                if (!isScrollable(e.target)) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            function isScrollable(element) {
+                // Check if element or any of its parents is scrollable
+                let currentElement = element;
+                while (currentElement) {
+                    if (currentElement.classList && 
+                        (currentElement.classList.contains('cards-container') || 
+                         currentElement.classList.contains('thr-popup'))) {
+                        return true;
+                    }
+                    currentElement = currentElement.parentElement;
+                }
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
